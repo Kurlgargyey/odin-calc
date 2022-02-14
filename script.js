@@ -41,7 +41,7 @@ const multiply = function(a,b){
 };
 
 const divide = function(a, b){
-  if(b===0){
+  if(b==0){
     return "You can't do that.";
   }
   return round(+a / +b);
