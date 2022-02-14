@@ -1,16 +1,16 @@
 const compute = function(){
   if (OPERATION){
     switch(OPERATION) {
-      case 'add':
+      case '+':
         DISPLAY.textContent = add(PREVIOUS,DISPLAY.textContent);
         break;
-      case 'subtract':
+      case '-':
         DISPLAY.textContent = subtract(PREVIOUS,DISPLAY.textContent);
         break;
-      case 'multiply':
+      case '*':
         DISPLAY.textContent = multiply(PREVIOUS,DISPLAY.textContent);
         break;
-      case 'divide':
+      case '/':
         DISPLAY.textContent = divide(PREVIOUS,DISPLAY.textContent);
         break;
     }
@@ -65,6 +65,34 @@ const clear = function(){
   DISPLAY.textContent = '';
 }
 
+const addDigit = function(digit){
+  if(CLEARNEXT){
+    clear();
+    CLEARNEXT = false;
+  }
+  DISPLAY.textContent += digit
+}
+
+const addDecimals = function(){
+  if(!DISPLAY.textContent.includes('.')){
+    DISPLAY.textContent += '.';
+    CLEARNEXT = false;
+  }
+}
+
+const removeLastDigit = function(){
+  DISPLAY.textContent = DISPLAY.textContent.slice(0,DISPLAY.textContent.length-1);
+  if(!DISPLAY.textContent){
+    DISPLAY.textContent = '0';
+    CLEARNEXT = true;
+  }
+}
+
+const addOperator = function(operator){
+  compute();
+  OPERATION = `${operator}`;
+}
+
 const main = function(){
   
   const digits = document.querySelectorAll('div.digits div button.digit');
@@ -76,32 +104,21 @@ const main = function(){
 
   digits.forEach(button => {
     button.addEventListener('click',()=>{
-      if(CLEARNEXT){
-        clear();
-        CLEARNEXT = false;
-      }
-      DISPLAY.textContent += button.textContent}
-      );
+      addDigit(button.textContent);
+    })
    });
 
   decimalbtn.addEventListener('click',()=>{
-    if(!DISPLAY.textContent.includes('.')){
-    DISPLAY.textContent += decimalbtn.textContent
-    CLEARNEXT = false;
-    }
-  });
+    addDecimals();
+    });
 
   backspacebtn.addEventListener('click',()=>{
-    DISPLAY.textContent = DISPLAY.textContent.slice(0,DISPLAY.textContent.length-1);
-    if(!DISPLAY.textContent){
-      DISPLAY.textContent = '0';
-    }
+    removeLastDigit();
   });
 
   operators.forEach(button => {
     button.addEventListener('click',() => {
-      compute();
-      OPERATION = `${button.id}`;
+      addOperator(button.textContent);
     })
   });
 
@@ -116,6 +133,47 @@ const main = function(){
     OPERATION = '';
     CLEARNEXT = true;
     DISPLAY.textContent = '0';
+  });
+
+  window.addEventListener('keydown',(e)=>{
+    switch(e.key){
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '0':
+        addDigit(e.key);
+        break;
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+        addOperator(e.key);
+        break;
+      case 'Enter':
+        compute();
+        OPERATION = '';
+        break;
+      case 'Backspace':
+        removeLastDigit();
+        break;
+      case ',':
+      case '.':
+        addDecimals();
+        break;
+      case 'Delete':
+        clear()
+        PREVIOUS = 0;
+        OPERATION = '';
+        CLEARNEXT = true;
+        DISPLAY.textContent = '0';
+        break;
+    }
   });
 }
 
