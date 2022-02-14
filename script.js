@@ -2,50 +2,53 @@ const compute = function(){
   if (OPERATION){
     switch(OPERATION) {
       case 'add':
-        display.textContent = add(PREVIOUS,display.textContent);
+        DISPLAY.textContent = add(PREVIOUS,DISPLAY.textContent);
         break;
       case 'subtract':
-        display.textContent = subtract(PREVIOUS,display.textContent);
+        DISPLAY.textContent = subtract(PREVIOUS,DISPLAY.textContent);
         break;
       case 'multiply':
-        display.textContent = multiply(PREVIOUS,display.textContent);
+        DISPLAY.textContent = multiply(PREVIOUS,DISPLAY.textContent);
         break;
       case 'divide':
-        display.textContent = divide(PREVIOUS,display.textContent);
+        DISPLAY.textContent = divide(PREVIOUS,DISPLAY.textContent);
         break;
     }
-    PREVIOUS = display.textContent;
-    RESULT = true;
+    PREVIOUS = DISPLAY.textContent;
+    CLEARNEXT = true;
   }else {
-    PREVIOUS = display.textContent;
+    PREVIOUS = DISPLAY.textContent;
     clear();
-    display.textContent = '0';
-    RESULT = true;
+    DISPLAY.textContent = '0';
+    CLEARNEXT = true;
   }
 }
 
+const round = function(num) {
+  return Math.round(num*10000)/10000
+}
 
 const add = function(a, b) {
-	return +a + +b;
+	return round(+a + +b);
 };
 
 const subtract = function(a, b) {
-	return +a - +b;
+	return round(+a - +b);
 };
 
 const multiply = function(a,b){
-  return +a * +b;
+  return round(+a * +b);
 };
 
 const divide = function(a, b){
   if(b===0){
-    return NaN;
+    return "You can't do that.";
   }
-  return +a / +b;
+  return round(+a / +b);
 };
 
 const power = function(a, b) {
-	return a ** b;
+	return round(a ** b);
 };
 
 const factorial = function(num) {
@@ -59,34 +62,50 @@ const factorial = function(num) {
 };
 
 const clear = function(){
-  display.textContent = '';
+  DISPLAY.textContent = '';
 }
 
 const main = function(){
   
   const digits = document.querySelectorAll('div.digits div button.digit');
   const operators = document.querySelectorAll('button.op');
-  const result = document.querySelector('button#operate');
+  const calculate = document.querySelector('button#operate');
   const clearbtn = document.querySelector('#clear');
+  const decimalbtn = document.querySelector('button#decimal');
+  const backspacebtn = document.querySelector('button#backspace');
 
   digits.forEach(button => {
     button.addEventListener('click',()=>{
-      if(RESULT){
+      if(CLEARNEXT){
         clear();
-        RESULT = false;
+        CLEARNEXT = false;
       }
-      display.textContent += button.textContent}
+      DISPLAY.textContent += button.textContent}
       );
    });
 
+  decimalbtn.addEventListener('click',()=>{
+    if(!DISPLAY.textContent.includes('.')){
+    DISPLAY.textContent += decimalbtn.textContent
+    CLEARNEXT = false;
+    }
+  });
+
+  backspacebtn.addEventListener('click',()=>{
+    DISPLAY.textContent = DISPLAY.textContent.slice(0,DISPLAY.textContent.length-1);
+    if(!DISPLAY.textContent){
+      DISPLAY.textContent = '0';
+    }
+  });
+
   operators.forEach(button => {
     button.addEventListener('click',() => {
-          compute();
-          OPERATION = `${button.id}`;
+      compute();
+      OPERATION = `${button.id}`;
     })
   });
 
-  result.addEventListener('click',() => {
+  calculate.addEventListener('click',() => {
     compute();
     OPERATION = '';
   });
@@ -95,15 +114,15 @@ const main = function(){
     clear()
     PREVIOUS = 0;
     OPERATION = '';
-    RESULT = true;
-    display.textContent = '0';
+    CLEARNEXT = true;
+    DISPLAY.textContent = '0';
   });
 }
 
-const display = document.querySelector('.display');
+const DISPLAY = document.querySelector('.display');
 
 let PREVIOUS = 0;
 let OPERATION = '';
-let RESULT = true;
+let CLEARNEXT = true;
 
 main();
