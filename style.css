@@ -9,6 +9,11 @@ body {
  flex-direction: column;
 }
 
+.operators {
+ display: flex;
+}
+
 .display {
  border: 1px solid black;
+ min-height: 18px;
 }
