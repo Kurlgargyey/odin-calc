@@ -1,19 +1,59 @@
+html {
+ box-sizing: border-box;
+}
+
 body {
  display: flex;
  justify-content: space-around;
 }
 
-
-.digits {
- display:flex;
- flex-direction: column;
+div {
+ display: flex;
 }
 
-.operators {
- display: flex;
+button {
+ flex: auto;
+}
+
+.calc-body {
+ flex-direction: column;
+ height: 800px;
+ width: 300px;
+}
+
+.digits {
+ flex-direction: column;
+ margin-bottom: 5px;
+}
+
+.operators{
+ flex-direction: column;
+ width: 66.66%;
+}
+
+.op {
+ min-width: 50%;
+}
+
+#zero {
+ min-width: 66.66%
+}
+
+.digit {
+ min-width: 33.33%;
+}
+
+#clear {
+ min-width: 66.66%;
+}
+
+#backspace {
+ min-width: 33.33%;
 }
 
 .display {
  border: 1px solid black;
  min-height: 18px;
+ padding: 1px;
+ margin-bottom: 5px;
 }
