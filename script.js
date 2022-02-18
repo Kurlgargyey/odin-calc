@@ -14,10 +14,14 @@ const compute = function(){
         DISPLAY.textContent = divide(PREVIOUS,DISPLAY.textContent);
         break;
     }
+    if (!isNaN(DISPLAY.textContent)) {
     PREVIOUS = DISPLAY.textContent;
+    }
     CLEARNEXT = true;
   }else {
+    if (!isNaN(+DISPLAY.textContent)) {
     PREVIOUS = DISPLAY.textContent;
+    }
     clear();
     DISPLAY.textContent = '0';
     CLEARNEXT = true;
@@ -25,26 +29,38 @@ const compute = function(){
 }
 
 const round = function(num) {
-  return Math.round(num*10000)/10000
+  return num.toFixed(2)
 }
 
 const add = function(a, b) {
-	return round(+a + +b);
+  const result = +a + +b;
+  console.log(`Calculated ${a} + ${b}. Result: ${result}`);
+	return round(result);
 };
 
 const subtract = function(a, b) {
-	return round(+a - +b);
+  const result = +a - +b;
+  console.log(`Calculated ${a} - ${b}. Result: ${result}`);
+	return round(result);
 };
 
 const multiply = function(a,b){
-  return round(+a * +b);
+  const result = +a * +b;
+  console.log(`Calculated ${a} * ${b}. Result: ${result}`);
+  return round(result);
 };
 
 const divide = function(a, b){
+  let result = 0;
   if(b==0){
-    return "You can't do that.";
+    result = "You can't do that.";
+    console.log(`Tried ${a} / ${b}, but you can't do that.`)
+    return (result);
+  } else {
+  result = +a / +b;
   }
-  return round(+a / +b);
+  console.log(`Calculated ${a} / ${b}. Result: ${result}`);
+  return round(result);
 };
 
 const power = function(a, b) {

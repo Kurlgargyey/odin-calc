@@ -5,25 +5,41 @@ html {
 body {
  display: flex;
  justify-content: space-around;
+ background-color: slategrey;
 }
 
 div {
  display: flex;
+ height: auto;
+ width: auto;
+ flex: auto;
 }
 
-button {
- flex: auto;
+.display {
+ border: 1px solid black;
+ height: 48px;
+ padding: 1px;
+ margin-bottom: 5px;
+ font-size: 48px;
+ flex: none;
+ background-color:cornsilk;
 }
 
 .calc-body {
  flex-direction: column;
- height: 800px;
- width: 300px;
+ height: 700px;
+ width: 530px;
+ flex: none;
 }
 
 .digits {
  flex-direction: column;
  margin-bottom: 5px;
+ flex-grow: 5;
+}
+
+.commands {
+ flex-direction: column;
 }
 
 .operators{
@@ -31,16 +47,35 @@ button {
  width: 66.66%;
 }
 
+button {
+ flex: auto;
+ font-size: 24px;
+}
+
+.digits button {
+ background-color:burlywood;
+}
+
+.commands button {
+ background-color:blanchedalmond;
+}
+
 .op {
  min-width: 50%;
+ min-height: 33.33%;
 }
 
 #zero {
  min-width: 66.66%
 }
 
+#operate {
+ min-width: 33.33%;
+}
+
 .digit {
  min-width: 33.33%;
+ min-height: 25%;
 }
 
 #clear {
@@ -51,9 +86,4 @@ button {
  min-width: 33.33%;
 }
 
-.display {
- border: 1px solid black;
- min-height: 18px;
- padding: 1px;
- margin-bottom: 5px;
-}
+

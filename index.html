@@ -7,6 +7,9 @@
   <script defer src="./script.js" ></script>
  </head>
  <body>
+  <div class="header">
+
+  </div>
   <div class="calc-body">
    <div class="display">0</div>
    <div class="digits">
@@ -16,20 +19,25 @@
    <div><button class="digit" id="zero">0</button><button id="decimal">.</button></div>
    </div>
    <div class="commands">
-    <div class="operators">
-     <div>
-      <button class="op" id="add">+</button><button class="op" id="subtract">-</button>
+    <div class="maths">
+     <div class="operators">
+      <div>
+       <button class="op" id="add">+</button><button class="op" id="subtract">-</button>
+      </div>
+      <div>
+       <button class="op" id="divide">/</button><button class="op" id="multiply">*</button>
+      </div>
      </div>
-     <div>
-      <button class="op" id="divide">/</button><button class="op" id="multiply">*</button>
-     </div>
+     <button class="result-button" id="operate">=</button>
     </div>
-    <button class="result-button" id="operate">=</button>
-   </div>
-   <div>
-    <button class="clear-button" id="clear">Clear</button>
-    <button id="backspace"><-</button> 
+    <div class="control">
+     <button class="clear-button" id="clear">Clear</button>
+     <button id="backspace"><-</button> 
+    </div>
    </div>
   </div>
+ <div class="footer">
+  
+ </div>
  </body>
 </html>
